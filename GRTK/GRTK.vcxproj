@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.props" Condition="Exists('..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -88,6 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Me\Downloads\grt-master\GRT;C:\Users\Me\Downloads\uWebSockets-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,11 +140,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GRTKRequestHandler.h" />
+    <ClInclude Include="structs.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GRTK.cpp" />
+    <ClCompile Include="GRTKRequestHandler.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -150,7 +155,27 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GRT\grt.vcxproj">
+      <Project>{963c9f75-7e56-38d2-a5ff-9f8ac7ef521f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\uWebSockets-master\VC++.vcxproj">
+      <Project>{499a83b9-a7fd-46c7-a980-b7d56bc283d9}</Project>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.targets" Condition="Exists('..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.props'))" />
+    <Error Condition="!Exists('..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.C.vcpkgmaster.1.0.0\build\native\vcpkg.C.vcpkgmaster.targets'))" />
+  </Target>
 </Project>

@@ -6,10 +6,11 @@
 #pragma once
 
 #include "targetver.h"
-
+#include <uWS.h>
 #include <stdio.h>
+#include <iostream>
 #include <tchar.h>
-
-
+#include <thread>
+#include <algorithm>
 
 // TODO: reference additional headers your program requires here
